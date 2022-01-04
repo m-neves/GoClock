@@ -47,6 +47,11 @@ func (rh *routesHandler) SetupRoutes() {
 	ch := NewCouseHandler(rh.sm, cs)
 	ch.SetupRoutes()
 
+	spr := repository.NewStudyPlanRepository()
+	sps := service.NewStudyPlanService(spr)
+	sph := NewStudyPlanHandler(rh.sm, sps)
+	sph.SetupRoutes()
+
 	lh := NewLoginHandler(rh.sm, us)
 	lh.SetupRoutes()
 }

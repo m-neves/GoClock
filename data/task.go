@@ -9,7 +9,7 @@ import (
 type Task struct {
 	Id     uint   `json:"id"`
 	Name   string `json:"task_name"`
-	UserId uint   `json:"-"`
+	UserId uint   `json:"user-id,omitempty"`
 }
 
 type TaskCompletion struct {

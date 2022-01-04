@@ -19,8 +19,8 @@ type Entry struct {
 	Type        EntryType     `json:"type"`
 	Start       time.Time     `json:"dt_start"`
 	End         time.Time     `json:"dt_end"`
-	UserId      int           `json:"user_id"`
-	SubjectId   int           `json:"subject_id"`
+	UserId      int           `json:"user_id,omitempty"`
+	SubjectId   int           `json:"subject_id,omitempty"`
 	EventId     sql.NullInt64 `json:"event_id,omitempty"`
 }
 

@@ -80,3 +80,21 @@ create table if not exists goclock.tbl_course (
 );
 
 
+create table if not exists goclock.tbl_study_plan (
+	id SERIAL,
+	study_plan_name varchar not null,
+	current_course int not null default 0,
+	user_id int not null,
+
+	primary key (id),
+	unique(user_id, study_plan_name)
+);
+
+create table if not exists goclock.tbl_study_plan_course (
+	course_id int not null,
+	study_plan_id int not null,
+	study_plan_course_order int not null default 0,
+
+	primary key (course_id, study_plan_id),
+	unique(study_plan_id, study_plan_course_order)
+);
