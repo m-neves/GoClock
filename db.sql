@@ -71,6 +71,7 @@ create table if not exists goclock.tbl_task_completion (
 
 create table if not exists goclock.tbl_course (
 	id SERIAL,
+	duration integer not null default 0,
 	user_id integer not null,
 	course_name varchar not null,
 

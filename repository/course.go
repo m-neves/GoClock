@@ -19,10 +19,10 @@ func NewCourseRepository() CourseRepositoryInterface {
 func (cr *courseRepository) Create(course *data.Course, userId int) error {
 	_, err := database.GetDb().Exec(`
 		INSERT INTO 
-			goclock.tbl_course(course_name, user_id)
+			goclock.tbl_course(course_name, duration, user_id)
 		VALUES
-			($1, $2)
-	`, course.Name, userId)
+			($1, $2, $3)
+	`, course.Name, course.Duration, userId)
 
 	return err
 }
@@ -30,7 +30,7 @@ func (cr *courseRepository) Create(course *data.Course, userId int) error {
 func (cr *courseRepository) FindAll(userId int) ([]*data.Course, error) {
 
 	rows, err := database.GetDb().Query(`
-		SELECT id, course_name
+		SELECT id, course_name, duration
 		FROM tbl_course c
 		WHERE c.user_id = $1
 	`, userId)
@@ -44,7 +44,11 @@ func (cr *courseRepository) FindAll(userId int) ([]*data.Course, error) {
 	for rows.Next() {
 		course := &data.Course{}
 
-		err := rows.Scan(&course.Id, &course.Name)
+		err := rows.Scan(
+			&course.Id,
+			&course.Name,
+			&course.Duration,
+		)
 
 		if err != nil {
 			return nil, err
